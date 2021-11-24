@@ -12,8 +12,9 @@ class Server {
 
         // Paths 
         this.paths = {
-            quotes: '/api/quotes',
             averages: '/api/averages',
+            slippage: '/api/slippages',
+            quotes:   '/api/quotes',
         }
         // Routes
         this.routes(); 
@@ -27,8 +28,9 @@ class Server {
     }
 
     routes() {
-        this.app.use( this.paths.quotes, require('../routes/quotes'));
         this.app.use( this.paths.averages, require('../routes/averages'));
+        this.app.use( this.paths.slippage, require('../routes/slippages'));
+        this.app.use( this.paths.quotes, require('../routes/quotes'));
     }
 
     listen() {

@@ -1,4 +1,4 @@
-const { pagesScrapper } = require("../helpers/quotes");
+const { pagesScrapper } = require("../helpers/pages-scrapper");
 
 quotesGet = async(req, res = response) => {
 
@@ -6,7 +6,7 @@ quotesGet = async(req, res = response) => {
 
     try {
         const results = await pagesScrapper();
-        console.log(results)
+        
         res.json(results);
     } catch (error) {
         res.status(400).json({
