@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer');
 const scrapPage = async(e) => {
     const browser = await puppeteer.launch({
         headless: true,
-        args: ['--use-gl=egl'],
+        ignoreDefaultArgs: ['--disable-extensions']
     });
     const page = await browser.newPage();
     await page.goto(e.url);
