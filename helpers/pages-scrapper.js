@@ -2,10 +2,10 @@ const puppeteer = require('puppeteer');
 
 const scrapPage = async(e) => {
     const browser = await puppeteer.launch({
-        headless: true,
-        ignoreDefaultArgs: ['--disable-extensions'],
-        args: ['--no-sandbox', '--disable-setuid-sandbox', '--use-gl=egl'],
-
+        args : [
+            '--no-sandbox',
+            '--disable-setuid-sandbox'
+          ]
     });
     const page = await browser.newPage();
     await page.goto(e.url);
