@@ -1,7 +1,10 @@
 const puppeteer = require('puppeteer');
 
 const scrapPage = async(e) => {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+        headless: true,
+        args: ['--use-gl=egl'],
+    });
     const page = await browser.newPage();
     await page.goto(e.url);
     const buyPrice = await page.$eval(e.buyPath, el => el.innerText);
