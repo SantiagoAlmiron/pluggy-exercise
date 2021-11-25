@@ -8,7 +8,9 @@ const averageGet = async(req, res = response) => {
 	try {
 		results = await pagesScrapper();
 
-		res.json(averageCalculator(results));
+		const average = await averageCalculator(results);
+
+		res.json(average);
 	} catch (error) {
 		res.status(400).json({
 			msg: `Failure trying to calculate the average for this reasones: ${error}`
