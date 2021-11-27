@@ -1,5 +1,8 @@
 const express = require('express');
 const { dbConnection } = require('../database/config');
+const cron = require('node-cron');
+const QuotesService = require('../servicies/quotes');
+const { createQuotes } = require('../helpers/create-quotes');
 
 class Server {
 
@@ -14,6 +17,9 @@ class Server {
         // Middlewares
         this.middlewares();
 
+        // Schedule works
+        this.updateQuotes();
+
         // Paths 
         this.paths = {
             averages: '/api/averages',
@@ -24,6 +30,22 @@ class Server {
         this.routes(); 
 
         this.listen();
+    }
+
+    async updateQuotes() {
+        cron.schedule("*/60 * * * * *", async() => {
+
+            try {
+                const QuoteService = new QuotesService
+                const results = await QuoteService.getQuotes();
+                await createQuotes(results);
+                
+                console.log('Quoes creadas con exito')
+            } catch (error) {
+                console.log(error)
+            }
+        });
+
     }
 
     async conectarDB() {
