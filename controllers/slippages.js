@@ -1,12 +1,11 @@
 const { response } = require("express");
 const averageCalculator = require("../helpers/average-calculator");
-const { pagesScrapper } = require("../helpers/pages-scrapper");
 const slippagesCalculator = require("../helpers/slippages-calculator");
+const Quote = require("../models/quote");
 
 const slippagesGet = async(req, res = response) => {
-
     try {
-        const quotesArr = await pagesScrapper();
+        const quotesArr = await Quote.where().sort({'_id':-1}).limit(3)
 				
         const average = await averageCalculator(quotesArr);
 

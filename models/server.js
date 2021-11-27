@@ -1,4 +1,5 @@
-const express = require('express')
+const express = require('express');
+const { dbConnection } = require('../database/config');
 
 class Server {
 
@@ -6,6 +7,9 @@ class Server {
         
         this.app = express();
         this.port = process.env.PORT;
+
+        // Database
+        this.conectarDB();
 
         // Middlewares
         this.middlewares();
@@ -20,6 +24,10 @@ class Server {
         this.routes(); 
 
         this.listen();
+    }
+
+    async conectarDB() {
+        await dbConnection();
     }
 
     middlewares() {

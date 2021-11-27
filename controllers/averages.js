@@ -1,12 +1,12 @@
 const { response } = require("express");
 
 const averageCalculator = require("../helpers/average-calculator");
-const { pagesScrapper } = require("../helpers/pages-scrapper");
+const Quote = require("../models/quote");
 
 const averageGet = async(req, res = response) => {
     
 	try {
-		results = await pagesScrapper();
+		const results = await Quote.where().sort({'_id':-1}).limit(3)
 
 		const average = await averageCalculator(results);
 
