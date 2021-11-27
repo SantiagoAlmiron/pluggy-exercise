@@ -33,14 +33,14 @@ class Server {
     }
 
     async updateQuotes() {
-        cron.schedule("*/60 * * * * *", async() => {
+        cron.schedule("*/60 * 10-18 * * 1-5", async() => {
 
             try {
                 const QuoteService = new QuotesService
                 const results = await QuoteService.getQuotes();
                 await createQuotes(results);
                 
-                console.log('Quoes creadas con exito')
+                console.log('successfully created quote')
             } catch (error) {
                 console.log(error)
             }
