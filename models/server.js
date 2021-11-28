@@ -4,6 +4,7 @@ const cron = require('node-cron');
 const QuotesService = require('../servicies/quotes');
 const { createQuotes } = require('../helpers/create-quotes');
 const cors = require('cors');
+const bp = require('body-parser')
 
 class Server {
 
@@ -11,6 +12,7 @@ class Server {
         
         this.app = express();
         this.app.use(cors());
+        this.app.use(bp.json())
         this.port = process.env.PORT;
 
         // Database

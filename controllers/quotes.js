@@ -1,9 +1,6 @@
-const { createQuotes } = require("../helpers/create-quotes");
 const Quote = require("../models/quote");
-const QuotesService = require("../servicies/quotes");
-quotesGet = async(req, res = response) => {
 
-    // Pensar en como mover esto de acá, posible colección de mongo
+quotesGet = async(req, res = response) => {
 
     try {
         const results = await Quote.where().sort({'_id':-1}).limit(3)
@@ -16,22 +13,27 @@ quotesGet = async(req, res = response) => {
     }
 }
 
-quotesScrap = async(req, res = response) => {
+quotesCreate = async(req, res = response) => {
 
     try {
-        const QuoteService = new QuotesService
-        const results = await QuoteService.getQuotes();
-        const quotes = await createQuotes(results);
+        const {buy_price, sell_price, source} = req.body
+        const quote = new Quote({
+            buy_price: buy_price,
+            sell_price: sell_price,
+            source: source
+        });
+        
+        await quote.save();
 
-        res.json(quotes);
+        res.json(quote);
     } catch (error) {
         res.status(400).json({
-            msg: `The information requested could not be accessed: ${error}`
+            msg: `Failed to create a new quote: ${error}`
         });
     }
 }
 
 module.exports = {
     quotesGet,
-    quotesScrap
+    quotesCreate
 }
