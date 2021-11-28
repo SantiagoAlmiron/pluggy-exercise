@@ -3,12 +3,14 @@ const { dbConnection } = require('../database/config');
 const cron = require('node-cron');
 const QuotesService = require('../servicies/quotes');
 const { createQuotes } = require('../helpers/create-quotes');
+const cors = require('cors');
 
 class Server {
 
     constructor() {
         
         this.app = express();
+        this.app.use(cors());
         this.port = process.env.PORT;
 
         // Database
